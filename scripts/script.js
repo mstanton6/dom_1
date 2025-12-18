@@ -1,7 +1,7 @@
 
 // In order to add submenu links, we will need to restructure the menuLinks array within index.js. 
 // Update the menuLinks array to the following:
-/* var menuLinks = [
+ var menuLinks = [
 
   {text: 'about', href: '/about'},
 
@@ -34,14 +34,15 @@
   ]},
 
 ];
-*/
+
 // Menu data structure
-var menuLinks = [
+/* var menuLinks = [
   { text: "about", href: "/about" },
   { text: "catalog", href: "/catalog" },
   { text: "orders", href: "/orders" },
   { text: "account", href: "/account" },
 ];
+*/
 
 // Part 1 -------------------------------------------------
 // 1.   Select and cache the <main> element in a variable named mainEl.
@@ -116,11 +117,24 @@ subMenuEl.style.top = '0';
 //In order to add interaction:
 
 // 1. Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
+let topMenuLinks = topMenuEl.getElementsByTagName('a');
 
 // 2. Attach a delegated 'click' event listener to topMenuEl.
+topMenuEl.addEventListener("click", handleSubmit);
 
-// 2a. The first line of code of the event listener function should call the event object's preventDefault() method.
+function handleSubmit(event) {
+  // 2a. The first line of code of the event listener function should call the event object's preventDefault() method.
+  event.preventDault();
+  // 2b. The second line of code of the function should immediately return if the element clicked was not an <a> element.
+  if (!event.target.matches('a')) {
+    return;
+  }
+  //2c. Log the content of the <a> to verify the handler is working.
+  console.log(event.target.textContent);
 
-// 2b. The second line of code of the function should immediately return if the element clicked was not an <a> element.
+  return;
+}
 
-//2c. Log the content of the <a> to verify the handler is working.
+
+
+
