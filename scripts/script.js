@@ -1,37 +1,43 @@
 
 // In order to add submenu links, we will need to restructure the menuLinks array within index.js. 
 // Update the menuLinks array to the following:
- var menuLinks = [
+var menuLinks = [
 
-  {text: 'about', href: '/about'},
+  { text: 'about', href: '/about' },
 
-  {text: 'catalog', href: '#', subLinks: [
+  {
+    text: 'catalog', href: '#', subLinks: [
 
-    {text: 'all', href: '/catalog/all'},
+      { text: 'all', href: '/catalog/all' },
 
-    {text: 'top selling', href: '/catalog/top'},
+      { text: 'top selling', href: '/catalog/top' },
 
-    {text: 'search', href: '/catalog/search'},
+      { text: 'search', href: '/catalog/search' },
 
-  ]},
+    ]
+  },
 
-  {text: 'orders', href: '#' , subLinks: [
+  {
+    text: 'orders', href: '#', subLinks: [
 
-    {text: 'new', href: '/orders/new'},
+      { text: 'new', href: '/orders/new' },
 
-    {text: 'pending', href: '/orders/pending'},
+      { text: 'pending', href: '/orders/pending' },
 
-    {text: 'history', href: '/orders/history'},
+      { text: 'history', href: '/orders/history' },
 
-  ]},
+    ]
+  },
 
-  {text: 'account', href: '#', subLinks: [
+  {
+    text: 'account', href: '#', subLinks: [
 
-    {text: 'profile', href: '/account/profile'},
+      { text: 'profile', href: '/account/profile' },
 
-    {text: 'sign out', href: '/account/signout'},
+      { text: 'sign out', href: '/account/signout' },
 
-  ]},
+    ]
+  },
 
 ];
 
@@ -112,27 +118,58 @@ subMenuEl.style.position = 'absolute';
 
 // 2. Set the CSS top property of subMenuEl to the value of 0.
 subMenuEl.style.top = '0';
+// Good till here
 
 /// Part 4: Adding Menu Interaction
 //In order to add interaction:
 
 // 1. Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
 let topMenuLinks = topMenuEl.getElementsByTagName('a');
-
+console.log('topMenuLinks ' + topMenuLinks);
 // 2. Attach a delegated 'click' event listener to topMenuEl.
 topMenuEl.addEventListener("click", handleSubmit);
 
 function handleSubmit(event) {
   // 2a. The first line of code of the event listener function should call the event object's preventDefault() method.
-  event.preventDault();
+
+  event.preventDefault();
+
   // 2b. The second line of code of the function should immediately return if the element clicked was not an <a> element.
-  if (!event.target.matches('a')) {
+  if (!event.target.matches('a')) {  
     return;
   }
   //2c. Log the content of the <a> to verify the handler is working.
-  console.log(event.target.textContent);
+  let acontent = event.target.textContent;
+  console.log('acontent is ' + acontent);
 
-  return;
+  // Part 4 - Second part
+
+  // 1. The event listener should add the active class to the <a> element that was clicked, unless it was already active,
+  // in which case it should remove it.
+  // Start HERE
+  // remove the active class if it was already active
+   if (event.target.hasAttribute('class')) {
+        event.target.classList.remove('active');
+   }
+   else {
+        // // 2. The event listener should remove the active class from each other <a> element in topMenuLinks -
+        // //    whether the active class exists or not.
+       // //    Hint: Removing a non-existent class from an element does not cause an error
+
+        for (i=0; i<topMenuLinks.length;i++) {
+           topMenuLinks[i].classList.remove('active');  // create a loop that removes from all of them // for or for each
+        }
+
+
+
+      event.target.classList.add('active');
+   }
+
+
+  // Part 5: Adding Submenu Interaction
+
+
+   return;
 }
 
 
