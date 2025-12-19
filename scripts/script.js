@@ -148,8 +148,11 @@ function handleSubmit(event) {
   // in which case it should remove it.
   // Start HERE
   // remove the active class if it was already active
-  if (event.target.hasAttribute('class')) {
-    event.target.classList.remove('active');
+  //console.log(event.target.getAttribute('class'));
+  if (event.target.getAttribute('class')) {
+    event.target.classList.toggle('active');
+    subMenuEl.style.top = '0';
+    //console.log('got here - subMenuEl' + subMenuEl);
   }
   else {
     // // 2. The event listener should remove the active class from each other <a> element in topMenuLinks -
@@ -161,6 +164,17 @@ function handleSubmit(event) {
     }
 
     event.target.classList.add('active');
+
+    let menusel = event.target.textContent.toLowerCase();
+    // show the submenu if the user clicks on a menu option that has a submenu
+    if (menusel == 'catalog' || menusel == 'orders' || menusel == 'account') {  
+      subMenuEl.style.top = '100%';
+    }
+    else {
+      // 1b. Otherwise, set the CSS top property of subMenuEl to 0.
+      // Hint: Caching the "link" object will come in handy for passing its subLinks array later.
+      subMenuEl.style.top = '0';
+    }
   }
 
   // Part 5 - 1st part: Adding Submenu Interaction
@@ -171,17 +185,6 @@ function handleSubmit(event) {
   // 1a. If the clicked <a> element's "link" object within menuLinks has a subLinks property
   //    (all do, except for the "link" object for ABOUT), set the CSS top property of subMenuEl to 100%.
 
-  let menusel = event.target.textContent.toLowerCase();
-
-  // show the submenu if the user clicks on a menu option that has a submenu
-  if (menusel == 'catalog' || menusel == 'orders' || menusel == 'account') {  // had to hard code this check, cause couldn't find these values 
-    subMenuEl.style.top = '100%';
-  }
-  else {
-    // 1b. Otherwise, set the CSS top property of subMenuEl to 0.
-    // Hint: Caching the "link" object will come in handy for passing its subLinks array later.
-    subMenuEl.style.top = '0';
-  }
 
   return;
 
