@@ -171,15 +171,7 @@ function handleSubmit(event) {
   // 1a. If the clicked <a> element's "link" object within menuLinks has a subLinks property
   //    (all do, except for the "link" object for ABOUT), set the CSS top property of subMenuEl to 100%.
 
-  let menusel = null;
-  // loop thru the menulinks till you find the menu item selected
-  for (let i = 0; i < menuLinks.length; i++) {
-    
-    if (menuLinks[i].text.toLowerCase() === event.target.textContent.toLowerCase()) {
-      menusel = menuLinks[i].text.toLowerCase();
-      break;
-    }
-  }
+  let menusel = event.target.textContent.toLowerCase();
 
   // show the submenu if the user clicks on a menu option that has a submenu
   if (menusel == 'catalog' || menusel == 'orders' || menusel == 'account') {  // had to hard code this check, cause couldn't find these values 
