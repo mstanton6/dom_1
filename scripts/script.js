@@ -125,7 +125,7 @@ subMenuEl.style.top = '0';
 
 // 1. Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
 let topMenuLinks = topMenuEl.getElementsByTagName('a');
-console.log('topMenuLinks ' + topMenuLinks);
+
 // 2. Attach a delegated 'click' event listener to topMenuEl.
 topMenuEl.addEventListener("click", handleSubmit);
 
@@ -135,12 +135,12 @@ function handleSubmit(event) {
   event.preventDefault();
 
   // 2b. The second line of code of the function should immediately return if the element clicked was not an <a> element.
-  if (!event.target.matches('a')) {  
+  if (!event.target.matches('a')) {
     return;
   }
   //2c. Log the content of the <a> to verify the handler is working.
   let acontent = event.target.textContent;
-  console.log('acontent is ' + acontent);
+  // console.log('acontent is ' + acontent);
 
   // Part 4 - Second part
 
@@ -148,28 +148,51 @@ function handleSubmit(event) {
   // in which case it should remove it.
   // Start HERE
   // remove the active class if it was already active
-   if (event.target.hasAttribute('class')) {
-        event.target.classList.remove('active');
-   }
-   else {
-        // // 2. The event listener should remove the active class from each other <a> element in topMenuLinks -
-        // //    whether the active class exists or not.
-       // //    Hint: Removing a non-existent class from an element does not cause an error
+  if (event.target.hasAttribute('class')) {
+    event.target.classList.remove('active');
+  }
+  else {
+    // // 2. The event listener should remove the active class from each other <a> element in topMenuLinks -
+    // //    whether the active class exists or not.
+    // //    Hint: Removing a non-existent class from an element does not cause an error
 
-        for (i=0; i<topMenuLinks.length;i++) {
-           topMenuLinks[i].classList.remove('active');  // create a loop that removes from all of them // for or for each
-        }
+    for (i = 0; i < topMenuLinks.length; i++) {
+      topMenuLinks[i].classList.remove('active');  // create a loop that removes from all of them // for or for each
+    }
 
+    event.target.classList.add('active');
+  }
 
+  // Part 5 - 1st part: Adding Submenu Interaction
+  // Within the same event listener, we want to toggle the submenu between active and non-active states.
+  // First, we will set the submenu to show or hide itself depending on the menu state:
+  // 1. Within the event listener, if the clicked <a> element does not yet have a class of "active" (it was inactive when clicked):
 
-      event.target.classList.add('active');
-   }
+  // 1a. If the clicked <a> element's "link" object within menuLinks has a subLinks property
+  //    (all do, except for the "link" object for ABOUT), set the CSS top property of subMenuEl to 100%.
 
+  let menusel = null;
+  // loop thru the menulinks till you find the menu item selected
+  for (let i = 0; i < menuLinks.length; i++) {
+    
+    if (menuLinks[i].text.toLowerCase() === event.target.textContent.toLowerCase()) {
+      menusel = menuLinks[i].text.toLowerCase();
+      break;
+    }
+  }
 
-  // Part 5: Adding Submenu Interaction
+  // show the submenu if the user clicks on a menu option that has a submenu
+  if (menusel == 'catalog' || menusel == 'orders' || menusel == 'account') {  // had to hard code this check, cause couldn't find these values 
+    subMenuEl.style.top = '100%';
+  }
+  else {
+    // 1b. Otherwise, set the CSS top property of subMenuEl to 0.
+    // Hint: Caching the "link" object will come in handy for passing its subLinks array later.
+    subMenuEl.style.top = '0';
+  }
 
+  return;
 
-   return;
 }
 
 
