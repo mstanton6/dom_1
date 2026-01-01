@@ -166,8 +166,15 @@ function handleSubmit(event) {
     event.target.classList.add('active');
 
     let menusel = event.target.textContent.toLowerCase();
+    // Part 5 - 1st part: Adding Submenu Interaction
+    // Within the same event listener, we want to toggle the submenu between active and non-active states.
+    // First, we will set the submenu to show or hide itself depending on the menu state:
+    // 1. Within the event listener, if the user clicked <a> element does not yet have a class of "active" (it was inactive when clicked):
+    // 1a. If the clicked <a> element's "link" object within menuLinks has a subLinks property
+    //    (all do, except for the "link" object for ABOUT), set the CSS top property of subMenuEl to 100%.
     // show the submenu if the user clicks on a menu option that has a submenu
-    if (menusel == 'catalog' || menusel == 'orders' || menusel == 'account') {  
+    let sellinks = "";
+    if (menusel == 'catalog' || menusel == 'orders' || menusel == 'account') {
       subMenuEl.style.top = '100%';
     }
     else {
@@ -175,18 +182,75 @@ function handleSubmit(event) {
       // Hint: Caching the "link" object will come in handy for passing its subLinks array later.
       subMenuEl.style.top = '0';
     }
+    // buildSubmenu(menuLinks);
+
+    if (menusel === 'orders') {
+      sellinks = [
+
+        { text: 'new', href: '/orders/new' },
+
+        { text: 'pending', href: '/orders/pending' },
+
+        { text: 'history', href: '/orders/history' },
+
+      ]
+    } else if (menusel === 'catalog') {
+
+      sellinks = [
+
+        { text: 'all', href: '/catalog/all' },
+
+        { text: 'top selling', href: '/catalog/top' },
+
+        { text: 'search', href: '/catalog/search' },
+
+      ]
+
+    } else if (menusel === 'account') {
+      sellinks = [
+        { text: 'profile', href: '/account/profile' },
+
+        { text: 'sign out', href: '/account/signout' },
+      ]
+    }
+
+    // let menuobject = "";
+    // for (let subtree of menuLinks) {
+    //   if (subtree.text === menusel) {
+    //     menuobject = subtree;
+    //     break;
+    //   }
+    // }
+
+    // console.log(menuobject);
+    // buildSubmenu(menuobject);
+
+    buildSubmenu(sellinks);
   }
 
-  // Part 5 - 1st part: Adding Submenu Interaction
-  // Within the same event listener, we want to toggle the submenu between active and non-active states.
-  // First, we will set the submenu to show or hide itself depending on the menu state:
-  // 1. Within the event listener, if the clicked <a> element does not yet have a class of "active" (it was inactive when clicked):
+  function buildSubmenu(sublinksarr) {
+    // Part 5 - 2nd part
+    // The submenu needs to be dynamic based on the clicked link. To facilitate that, we will create a helper function called buildSubmenu that does the following:
+    // 1. Clear the current contents of subMenuEl.
+    //subMenuEl.Clear;
+    subMenuEl.textContent = '';
+    // 2. Iterate over the subLinks array, passed as an argument, and for each "link" object:
 
-  // 1a. If the clicked <a> element's "link" object within menuLinks has a subLinks property
-  //    (all do, except for the "link" object for ABOUT), set the CSS top property of subMenuEl to 100%.
+    for (let link of sublinksarr) {
+      // 2a. Create an <a> element.
+      let anchor = document.createElement("a");
 
+      // 2b. Add an href attribute to the <a>, with the value set by the href property of the "link" object.
+      anchor.setAttribute("href", link.href);
 
-  return;
+      // 2c. Set the element's content to the value of the text property of the "link" object.
+      anchor.textContent = link.text;
+      console.log('link.text: ' + link.text);
+      // 2d. Append the new element to the subMenuEl.
+      subMenuEl.appendChild(anchor);
+    }
+
+  }
 
 }
 
