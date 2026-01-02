@@ -132,6 +132,7 @@ topMenuEl.addEventListener("click", handleSubmit);
 // Part 5 - 3rd part 1. Attach a delegated 'click' event listener to subMenuEl.
 subMenuEl.addEventListener("click", handlesubMenuEl);
 
+
 function handlesubMenuEl(event) {
   // 1a. The first line of code of the event listener function should call the event object's preventDefault() method.
   event.preventDefault();
@@ -146,15 +147,14 @@ function handlesubMenuEl(event) {
   // 2. Next, the event listener should set the CSS top property of subMenuEl to 0.
   subMenuEl.style.top = '0';
 
-   // 3. Remove the active class from each <a> element in topMenuLinks
+  // 3. Remove the active class from each <a> element in topMenuLinks
   for (i = 0; i < topMenuLinks.length; i++) {
-      topMenuLinks[i].classList.remove('active'); 
+    topMenuLinks[i].classList.remove('active');
   }
 
   //4. Update the contents of mainEl, within an <h1>, to the contents of the <a> element clicked within subMenuEl.
-    mainEl.innerHTML = `<h1>` + acontent.toUpperCase() + `</h1>`;
- 
-  // 5. If the ABOUT link is clicked, an <h1>About</h1> should be displayed.
+  mainEl.innerHTML = `<h1>` + acontent.toUpperCase() + `</h1>`;
+
 }
 
 function handleSubmit(event) {
@@ -252,6 +252,11 @@ function handleSubmit(event) {
 
     // console.log(menuobject);
     // buildSubmenu(menuobject);
+
+    // 5. If the ABOUT link is clicked, an <h1>About</h1> should be displayed.
+    if (menusel === 'about') {
+      mainEl.innerHTML = `<h1>About</h1>`;
+    }
 
     buildSubmenu(sellinks);
   }
