@@ -129,6 +129,34 @@ let topMenuLinks = topMenuEl.getElementsByTagName('a');
 // 2. Attach a delegated 'click' event listener to topMenuEl.
 topMenuEl.addEventListener("click", handleSubmit);
 
+// Part 5 - 3rd part 1. Attach a delegated 'click' event listener to subMenuEl.
+subMenuEl.addEventListener("click", handlesubMenuEl);
+
+function handlesubMenuEl(event) {
+  // 1a. The first line of code of the event listener function should call the event object's preventDefault() method.
+  event.preventDefault();
+
+  // 1b. The second line of code within the function should immediately return if the element clicked was not an <a> element.
+  if (!event.target.matches('a')) {
+    return;
+  }
+  //1c. Log the content of the <a> to verify the handler is working.
+  let acontent = event.target.textContent;
+  // console.log('acontent is ' + acontent);
+  // 2. Next, the event listener should set the CSS top property of subMenuEl to 0.
+  subMenuEl.style.top = '0';
+
+   // 3. Remove the active class from each <a> element in topMenuLinks
+  for (i = 0; i < topMenuLinks.length; i++) {
+      topMenuLinks[i].classList.remove('active'); 
+  }
+
+  //4. Update the contents of mainEl, within an <h1>, to the contents of the <a> element clicked within subMenuEl.
+    mainEl.innerHTML = `<h1>` + acontent.toUpperCase() + `</h1>`;
+ 
+  // 5. If the ABOUT link is clicked, an <h1>About</h1> should be displayed.
+}
+
 function handleSubmit(event) {
   // 2a. The first line of code of the event listener function should call the event object's preventDefault() method.
 
@@ -245,7 +273,7 @@ function handleSubmit(event) {
 
       // 2c. Set the element's content to the value of the text property of the "link" object.
       anchor.textContent = link.text;
-      console.log('link.text: ' + link.text);
+      //console.log('link.text: ' + link.text);
       // 2d. Append the new element to the subMenuEl.
       subMenuEl.appendChild(anchor);
     }
