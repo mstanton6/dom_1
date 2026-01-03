@@ -41,15 +41,6 @@ var menuLinks = [
 
 ];
 
-// Menu data structure
-/* var menuLinks = [
-  { text: "about", href: "/about" },
-  { text: "catalog", href: "/catalog" },
-  { text: "orders", href: "/orders" },
-  { text: "account", href: "/account" },
-];
-*/
-
 // Part 1 -------------------------------------------------
 // 1.   Select and cache the <main> element in a variable named mainEl.
 let mainEl = document.querySelector("main");
@@ -210,50 +201,17 @@ function handleSubmit(event) {
       // Hint: Caching the "link" object will come in handy for passing its subLinks array later.
       subMenuEl.style.top = '0';
     }
-    // buildSubmenu(menuLinks);
 
-    if (menusel === 'orders') {
-      sellinks = [
-
-        { text: 'new', href: '/orders/new' },
-
-        { text: 'pending', href: '/orders/pending' },
-
-        { text: 'history', href: '/orders/history' },
-
-      ]
-    } else if (menusel === 'catalog') {
-
-      sellinks = [
-
-        { text: 'all', href: '/catalog/all' },
-
-        { text: 'top selling', href: '/catalog/top' },
-
-        { text: 'search', href: '/catalog/search' },
-
-      ]
-
-    } else if (menusel === 'account') {
-      sellinks = [
-        { text: 'profile', href: '/account/profile' },
-
-        { text: 'sign out', href: '/account/signout' },
-      ]
+    // Get the correct submenu
+    if (menusel === 'orders') {            // orders sublinks
+      sellinks = menuLinks[2].subLinks;   // orders;          
+    } else if (menusel === 'catalog') {   // catalog sublinks
+      sellinks =  menuLinks[1].subLinks;  // catalog;
+    } else if (menusel === 'account') {   // account sublinks
+      sellinks = menuLinks[3].subLinks;  // account;
     }
 
-    // let menuobject = "";
-    // for (let subtree of menuLinks) {
-    //   if (subtree.text === menusel) {
-    //     menuobject = subtree;
-    //     break;
-    //   }
-    // }
-
-    // console.log(menuobject);
-    // buildSubmenu(menuobject);
-
-    // 5. If the ABOUT link is clicked, an <h1>About</h1> should be displayed.
+        // 5. If the ABOUT link is clicked, an <h1>About</h1> should be displayed.
     if (menusel === 'about') {
       mainEl.innerHTML = `<h1>About</h1>`;
     }
